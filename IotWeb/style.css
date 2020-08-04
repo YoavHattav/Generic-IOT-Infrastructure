@@ -1,0 +1,126 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    background-image: url("img/background.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.menu ul{
+    display: inline-flex;
+    margin: 50px;
+}
+.menu ul li{
+    list-style: none;
+    margin: 0 20px;
+    color: lightslategrey;
+    cursor: pointer;
+}
+
+.logo img{
+    width: 30px;
+    margin-top: -7px;
+    margin-right: 48px;
+}
+
+.signup-btn{
+    top: 40px;
+    right: 160px;
+    position: absolute;
+    text-decoration: none;
+    color: mintcream;
+    border: 2px solid transparent;
+    border-radius: 20px;
+    background-image: linear-gradient(darkslateblue,rgb(61, 130, 139)), radial-gradient(circle at top left, #fd00da, #19d7f8);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    transition: background-image 2s;
+}
+.signup-btn span{
+    display: block;
+    padding: 8px 22px;
+}
+
+.signup-btn:hover{
+    background-image: linear-gradient(#fd00da, #19d7f8), radial-gradient(circle at top left, #fd00da, #19d7f8);
+}
+
+.login-btn {
+    top: 40px;
+    right: 60px;
+    position: absolute;
+    text-decoration: none;
+    color: mintcream;
+    border: 2px solid transparent;
+    border-radius: 20px;
+    background-image: linear-gradient(darkslateblue,rgb(61, 130, 139)), radial-gradient(circle at top left,  #fd00da, #19d7f8);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    transition: background-image 2s;
+}
+
+.login-btn span{
+    display: block;
+    padding: 8px 22px;
+}
+
+.login-btn:hover{
+    background-image: linear-gradient(#fd00da, #19d7f8), radial-gradient(circle at top left, #fd00da, #19d7f8);
+}
+
+.home-btn{
+    color: turquoise !important;
+}
+
+.banner{
+    width: 80%;
+    height: 70%;
+    top: 25%;
+    left: 130px;
+    position: absolute;
+    color: #fff;
+}
+.app-text {
+    width: 50%;
+    float: left;
+}
+.app-text h1 {
+    font-size: 43px;
+    width: 640px;
+    position: relative;
+    margin-left: 40px;
+}
+.app-text p {
+    width: 650px;
+    font-size: 15px;
+    margin: 30px 0 30px 40px;
+    line-height: 25px;
+    color: #919191;
+}
+
+.social-icons {
+    right: 72px;
+    bottom: 35px;
+    position: absolute;
+}
+
+.social-icons ul li{
+    list-style: none;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.social-icons ul li a {
+    color: #999;
+    border-radius: 50%;
+    border: 1px solid;
+    padding: 5px;
+    display: block;
+}

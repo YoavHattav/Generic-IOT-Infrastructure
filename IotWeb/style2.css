@@ -1,0 +1,199 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    background-image: url("img/background.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.menu ul{
+    display: inline-flex;
+    margin: 50px;
+}
+.menu ul li{
+    list-style: none;
+    margin: 0 20px;
+    color: lightslategrey;
+    cursor: pointer;
+}
+
+.logo img{
+    width: 60px;
+    margin-top: -7px;
+    margin-right: 48px;
+}
+
+.signup-btn{
+    top: 40px;
+    right: 180px;
+    position: absolute;
+    text-decoration: none;
+    color: mintcream;
+    border: 1px solid transparent;
+    border-radius: 20px;
+    background-image: linear-gradient(darkslateblue,rgb(61, 130, 139)), radial-gradient(circle at top left, #fd00da, #19d7f8);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    transition: background-image 2s;
+}
+.signup-btn span{
+    display: block;
+    padding: 8px 22px;
+}
+
+.signup-btn:hover{
+    background-image: linear-gradient(#fd00da, #19d7f8), radial-gradient(circle at top left, #fd00da, #19d7f8);
+}
+
+.login-btn {
+    top: 40px;
+    right: 60px;
+    position: absolute;
+    text-decoration: none;
+    color: mintcream;
+    border: 1px solid transparent;
+    border-radius: 20px;
+    background-image: linear-gradient(darkslateblue,rgb(61, 130, 139)), radial-gradient(circle at top left,  #fd00da, #19d7f8);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    transition: background-image 2s;
+}
+
+.login-btn span{
+    display: block;
+    padding: 8px 22px;
+}
+
+.login-btn:hover{
+    background-image: linear-gradient(#fd00da, #19d7f8), radial-gradient(circle at top left, #fd00da, #19d7f8);
+}
+
+.social-icons {
+    right: 72px;
+    bottom: 35px;
+    position: absolute;
+}
+
+.social-icons ul li{
+    list-style: none;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.social-icons ul li a {
+    color: #999;
+    border-radius: 50%;
+    border: 1px solid;
+    padding: 5px;
+    display: block;
+}
+
+[data-tab-content] {
+    display: none;
+}
+.active[data-tab-content] {
+    display: block;
+}
+.tab {
+    padding: 5px;
+}
+.tab:hover {
+    background-color: mediumvioletred;
+}
+.tab:active {
+    background-color: midnightblue;
+}
+.tab-content {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#home {
+    width: 50%;
+    float: left;
+}
+#home h1 {
+    font-size: 43px;
+    width: 640px;
+    position: relative;
+    margin-left: 40px;
+    color: paleturquoise;
+}
+#home p {
+    width: 650px;
+    font-size: 15px;
+    margin: 30px 0 30px 40px;
+    line-height: 25px;
+    color: #919191;
+}
+#home img {
+    float: right;
+    margin-right: -530px;
+    margin-top: -330px;
+    width: 40%;
+    height: 70%;
+}
+
+#aboutUs {
+    float: left;
+    margin-left: 0px;
+    margin-right: 0px;
+    color: paleturquoise;
+}
+
+#aboutUs img{
+    float: right;
+    margin-right: 70px;
+    width: 50%;
+    height: 70%;
+}
+#aboutUs p{
+    padding: 10px;
+}
+
+#contactUs {
+    float: left;
+    margin-left: 0px;
+    margin-right: 0px;
+    color: paleturquoise;
+}
+
+#contactUs p{
+    padding: 10px;
+}
+
+#contactUs ul li {
+    list-style: none;
+    margin-left: 60px;
+    color: #999;
+    font-size: x-large;
+    padding: 15px;
+    display: block;
+}
+
+.form {
+    text-align: center;
+}
+
+.form h1{
+    color: paleturquoise;
+}
+
+.form form p{
+    padding: 5px;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 30;
+    text-align: left;
+    color: #19f863;
+}

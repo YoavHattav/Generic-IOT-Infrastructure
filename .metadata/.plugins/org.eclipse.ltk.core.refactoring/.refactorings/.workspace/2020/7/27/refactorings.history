@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;IotServlets&apos; to &apos;TomcatServer&apos;" description="Rename resource &apos;IotServlets&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="/IotServlets" name="TomcatServer" stamp="1593680454926" updateReferences="true"/>
+</session>
