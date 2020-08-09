@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -19,12 +20,18 @@ import il.co.ilrd.iot.Dispatcher.Callback;
 
 public class JarLoader {
 	SingletonCommandFactory factory;
-//	Dispatcher<String> dispacher = null;
-
-	public JarLoader(Dispatcher<String> dispacher) {
+	Callback<String> cb = null;
+	
+	public JarLoader() {
+		Consumer<String> consumer = jarPath -> {
+			try {
+				new JarLoader().load(jarPath);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		};
+		cb = new Callback<String>(consumer, null);
 		factory = SingletonCommandFactory.getInstance();
-//		this.dispacher = dispacher;
-//		dispacher.register(cb);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -102,7 +109,7 @@ public class JarLoader {
 
 	public static void main(String[] args) {
 		try {
-			new JarLoader(null).load("/home/student/CR.jar");
+			new JarLoader().load("/home/student/CR.jar");
 			System.out.println(SingletonCommandFactory.getInstance().map_types);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

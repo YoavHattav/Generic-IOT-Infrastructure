@@ -4,17 +4,19 @@ import java.net.InetSocketAddress;
 
 public class GateWayServer {
 	HTTPCommunication httpCom;
-	TaskManagment tm;
+	TaskManagment taskManagment;
 	int port;
 	
 	public GateWayServer(int port, int numOfThreads) {
 		this.port = port;
-		tm = new TaskManagment(numOfThreads);
+		taskManagment = new TaskManagment(numOfThreads);
 	}
 	public void start() {
 		JarLoader jl = new JarLoader();
-		jl.load();
-		httpCom = new HTTPCommunication(new InetSocketAddress("0.0.0.0", port), tm);
+		JarDirMonitor jdm = new JarDirMonitor("/home/student/Generic-IOT-Infrastructure/jarDir");
+		jdm.register(jl.cb);
+		jdm.startMonitoring();
+		httpCom = new HTTPCommunication(new InetSocketAddress("0.0.0.0", port), taskManagment);
 	}
 	public void stop() {}
 	

@@ -10,6 +10,7 @@ public class CRCommand implements Command {
 	
 	public CRCommand(JsonObject data) {
 		this.data = data;
+		execute();
 	}
 	@Override
 	public Response execute() {

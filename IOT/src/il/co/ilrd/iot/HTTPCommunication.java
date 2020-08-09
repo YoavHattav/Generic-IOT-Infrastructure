@@ -30,7 +30,7 @@ public class HTTPCommunication implements Communication{
 		try {
 			HttpServer server = HttpServer.create(inetSocketAddress, 0);
 			ExecutorService tpexec = Executors.newFixedThreadPool(10);
-			server.createContext("/request", new HTTPServerHandler(taskMannager));
+			server.createContext("/", new HTTPServerHandler(taskMannager));
 			server.setExecutor(tpexec);
 			server.start();
 		} catch (IOException e) {
@@ -72,7 +72,6 @@ public class HTTPCommunication implements Communication{
 			System.out.println(json.get("Key").getAsString());
 			System.out.println(json.get("Data").getAsJsonObject());
 			tm.submitTask(peer, json.get("Key").getAsString(), json.get("Data").getAsJsonObject());
-			
 		}
 	}
 }

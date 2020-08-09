@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+
 public class Factory<K, T, D> {
 	
 	Map<K, Function<D, ? extends T>> map_types = new HashMap<K, Function<D, ? extends T>>();
@@ -14,7 +15,9 @@ public class Factory<K, T, D> {
 	
 	public T Create(K key, D data) {
 		Function<D, ? extends T> ctorFunction = map_types.get(key);
+		System.out.println(ctorFunction);
+		T val = ctorFunction.apply(data);
 		
-		return ctorFunction.apply(data);
+		return val;
 	}
 }

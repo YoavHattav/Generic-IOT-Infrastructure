@@ -12,6 +12,7 @@ public class Task implements Runnable{
 		this.peer = peer;
 		Key = key;
 		this.data = data;
+		System.out.println(key + " hhhhhh " + data);
 	}
 	public String getKey() {
 		return Key;
@@ -27,6 +28,7 @@ public class Task implements Runnable{
 	public void run() {
 		SingletonCommandFactory factory = SingletonCommandFactory.getInstance();
 		Command command = factory.Create(Key, data);
+		System.out.println(command.toString());
 		Response response = command.execute();
 		System.out.println("before send" + Key);
 		System.out.println(data);

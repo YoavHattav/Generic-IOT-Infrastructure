@@ -9,7 +9,7 @@ public class TaskManagment {
 	ExecutorService tp; 
 	
 	public TaskManagment(int numOfThreads) {
-		this.tp = Executors.newFixedThreadPool(numOfThreads);
+		tp = Executors.newFixedThreadPool(numOfThreads);
 	}
 	public void submitTask(Peer peer, String key, JsonObject data) {
 		tp.submit(createTask(peer, key, data));
