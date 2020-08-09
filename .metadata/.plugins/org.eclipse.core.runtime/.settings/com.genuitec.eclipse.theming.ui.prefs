@@ -1,11 +1,12 @@
 applyBackground=false
 approved.defs.file.last.changed.time=1594835793000
 codemix.dont.show.upsell.until=1595070892303
-configurationInstallLocation=/home/student/eclipse/
+configurationInstallLocation=/home/student/eclipse-jee-2020-06-R-linux-gtk-x86_64/eclipse/
 eclipse.preferences.version=1
+elearning.dont.show.until=1598008365479
 iconcolormode=primary
-last.download.attempt.time=1596699813180
-lastConfiguration=1596801479384
+last.download.attempt.time=1596971566656
+lastConfiguration=1596971774496
 newinstall=false
 showWelcomeDialog=false
 workbench.theme=Dark Gray
