@@ -28,12 +28,9 @@ public class Task implements Runnable{
 	public void run() {
 		SingletonCommandFactory factory = SingletonCommandFactory.getInstance();
 		Command command = factory.Create(Key, data);
-		System.out.println(command.toString());
+		System.out.println("in run task " + command.toString());
 		Response response = command.execute();
-		System.out.println("before send" + Key);
-		System.out.println(data);
-		System.out.println("factory" + factory);
-
+		
 		peer.send(response);
 	}
 }

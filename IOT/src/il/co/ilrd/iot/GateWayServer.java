@@ -18,7 +18,9 @@ public class GateWayServer {
 		jdm.startMonitoring();
 		httpCom = new HTTPCommunication(new InetSocketAddress("0.0.0.0", port), taskManagment);
 	}
-	public void stop() {}
+	public void stop() {
+		
+	}
 	
 	public static void main(String[] args) {
 		GateWayServer gws = new GateWayServer(55554, 5);

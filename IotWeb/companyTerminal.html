@@ -1,0 +1,375 @@
+<html>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+
+<head>
+    <title>Company Terminal</title>
+    <style>
+        body {
+            width: 100%;
+            height: 100%;
+            background-image: url("img/background.jpg");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            color: #DDD;
+        }
+
+        th,
+        td,
+        p,
+        input {
+            font: 14px Verdana;
+        }
+
+        table,
+        th,
+        td {
+            border: solid 1px #DDD;
+            border-collapse: collapse;
+            padding: 2px 3px;
+            text-align: center;
+        }
+
+        th {
+            font-weight: bold;
+        }
+
+        .edit-button {
+            background-color: #555;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            opacity: 0.8;
+            position: fixed;
+            bottom: 23px;
+            right: 28px;
+            width: 280px;
+        }
+
+        .addForm-popup {
+            display: none;
+            position: fixed;
+            border: 3px solid #f1f1f1;
+        }
+
+        /* The popup form - hidden by default */
+        .form-popup {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            right: 15px;
+            border: 3px solid #f1f1f1;
+            z-index: 9;
+        }
+
+        /* Add styles to the form container */
+        .editForm {
+            max-width: 300px;
+            padding: 10px;
+            background-color: white;
+        }
+
+        /* Full-width input fields */
+        .editForm input[type=text],
+        .editForm input[type=password] {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            border: none;
+            background: #f1f1f1;
+        }
+
+        /* When the inputs get focus, do something */
+        .editForm input[type=text]:focus,
+        .editForm input[type=password]:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+
+        /* Set a style for the submit/login button */
+        .editForm .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        /* Add a red background color to the cancel button */
+        .editForm .cancel {
+            background-color: red;
+        }
+
+        /* Add some hover effects to buttons */
+        .editForm .btn:hover,
+        .open-button:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="button" onclick="loadCompanyDetails()" value="Show company's info" />
+    <p id="showCompanyData"></p>
+    <input type="button" onclick="CreateProductTable2()" value="Show company's products" />
+    <div>
+        <p id="showProducts"></p>
+
+        <button class="add-button" onclick="openAddProductForm()">add a product</button>
+        <div class="addForm-popup" id="AddProductForm">
+            <form class="addForm" id="addFormParams">
+                <h1>Add Product</h1>
+
+                <input type="text" placeholder="Enter new item" id="modelName" required>
+
+                <input type="submit" class="btn" onclick="addProduct()" value="submit">
+                <button type="button" class="btn cancel" onclick="closeAddProductForm()">Close</button>
+            </form>
+        </div>
+    </div>
+
+
+    <button class="edit-button" onclick="openEditForm()">Edit Company's details</button>
+    <div class="form-popup" id="EditForm">
+        <form class="editForm" id="editFormParams">
+            <h1>Edit Company's details</h1>
+
+            <input type="text" placeholder="Enter Email" id="editEmail" required>
+
+            <input type="password" placeholder="Enter Password" id="editPassword" required>
+
+            <input type="text" placeholder="Enter new address" id="editAddress" required>
+
+            <input type="text" placeholder="Enter new company name" id="editCompanyName" required>
+
+            <input type="submit" class="btn" onclick="editCompanyDetails()" value="submit">
+            <button type="button" class="btn cancel" onclick="closeEditForm()">Close</button>
+        </form>
+    </div>
+
+</body>
+
+<script>
+    function openAddProductForm() {
+        document.getElementById("AddProductForm").style.display = "block";
+    }
+    function closeAddProductForm() {
+        document.getElementById("AddProductForm").style.display = "none";
+    }
+
+    function openEditForm() {
+        document.getElementById("EditForm").style.display = "block";
+    }
+
+    function closeEditForm() {
+        document.getElementById("EditForm").style.display = "none";
+    }
+
+    const editForm = document.getElementById("editFormParams");
+    editForm.addEventListener("submit", editCompanyDetails);
+
+    function editCompanyDetails(e) {
+        e.preventDefault();
+        var username = document.getElementById("editEmail").value;
+        var pwd = document.getElementById("editPassword").value;
+        var add = document.getElementById("editAddress").value;
+        var name = document.getElementById("editCompanyName").value;
+        var body = {
+            email: username,
+            password: pwd,
+            address: add,
+            company_name: name
+        };
+        var json = JSON.stringify(body);
+
+        console.log(json);
+        var xhr = new XMLHttpRequest();
+        xhr.open("PUT", "http://10.1.0.21:8080/TomcatServer/companies", true);
+        xhr.setRequestHeader("token", sessionStorage.getItem("token"));
+        xhr.onload = function () {
+            if (xhr.status == 200) {
+                console.log("200");
+                console.log(xhr.response);
+                closeForm();
+                loadCompanyDetails();
+            }
+            else {
+                console.log("did not edit comp details");
+                alert(xhr.response);
+            }
+        };
+        xhr.send(json);
+    }
+
+    function loadCompanyDetails() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://10.1.0.21:8080/TomcatServer/companies", true);
+        xhr.setRequestHeader("token", sessionStorage.getItem("token"));
+        xhr.onload = function () {
+            if (this.status != 200) {
+                alert("Wrong input, status = " + this.status);
+                return;
+            }
+            var companyDetails = JSON.parse(xhr.response);
+            console.log(companyDetails);
+            var table = '<table>' +
+                "<tr>" +
+                "<th>Company Name</th>" +
+                "<th>Email</th>" +
+                "<th>Address</th>" +
+                "</tr>";
+
+            table +=
+                "<tr>" +
+                "<td>" + companyDetails.company_name + "</td>" +
+                "<td>" + companyDetails.email + "</td>" +
+                "<td>" + companyDetails.address + "</td>" +
+                "</tr>";
+
+            table += "</table>";
+            document.getElementById("showCompanyData").innerHTML = table;
+        }
+
+        xhr.send();
+    }
+
+    function deleteProduct(productId) {
+
+        var body = {
+            product_id: productId
+        };
+        var json = JSON.stringify(body);
+
+        console.log(json);
+        var xhr = new XMLHttpRequest();
+        xhr.open("DELETE", "http://10.1.0.21:8080/TomcatServer/products", true);
+        xhr.setRequestHeader("token", sessionStorage.getItem("token"));
+        xhr.onload = function () {
+            if (xhr.status == 200) {
+                console.log("200");
+                console.log(xhr.response);
+                CreateProductTable2();
+            }
+            else {
+                console.log("did not delete item");
+                alert(xhr.response);
+            }
+        };
+        xhr.send(json);
+    }
+
+    const addForm = document.getElementById("addFormParams");
+    addForm.addEventListener("submit", addProduct);
+
+    function addProduct(e) {
+        e.preventDefault();
+        var modelName = document.getElementById("modelName").value;
+        var body = {
+            model: modelName
+        };
+        var json = JSON.stringify(body);
+
+        console.log(json);
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "http://10.1.0.21:8080/TomcatServer/products", true);
+        xhr.setRequestHeader("token", sessionStorage.getItem("token"));
+        xhr.onload = function () {
+            if (xhr.status == 200) {
+                console.log("200");
+                console.log(xhr.response);
+                CreateProductTable2();
+            }
+            else {
+                console.log("did not add a new product");
+                alert(xhr.response);
+            }
+        };
+        xhr.send(json);
+    }
+
+    function CreateProductTable2() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://10.1.0.21:8080/TomcatServer/products", true);
+        xhr.setRequestHeader("token", sessionStorage.getItem("token"));
+        xhr.onload = function () {
+            if (this.status != 200) {
+                alert("Something is wrong, status = " + this.status + "\nPlease log in");
+                location.replace("landing.html");
+                return;
+            }
+            var list = JSON.parse(xhr.response);
+            if (list.products.length == 0) {
+                var empty = "<h1>You have no products yet</h1>";
+                document.getElementById("showProducts").innerHTML = empty;
+                return;
+            }
+
+            var table = '<table>' +
+                "<tr>" +
+                "<th>Product ID</th>" +
+                "<th>Product Name</th>" +
+                "<th>Edit</th>" +
+                "<th>Delete</th>" +
+                "</tr>";
+
+            for (var i in list.products) {
+                var product = list.products[i];
+                table +=
+                    "<tr>" +
+                    "<td>" + product.productId + "</td>" +
+                    "<td>" + product.productModel + "</td>" +
+                    "<td><button class='btn edit btn-primary' id='edit' onclick='openEditProductsForm(" + product.productId + ")'/></td>" +
+                    "<td><button class='btn cancel btn-danger' id='remove' onclick='deleteProduct(" + product.productId + ")'/></td>" +
+                    "</tr>" +
+                    "<tr> <td colspan='4' id ='prod" + product.productId + "'></tr>";
+            }
+
+            table += "</table>";
+
+            document.getElementById("showProducts").innerHTML = table;
+        }
+
+        xhr.send();
+    }
+
+    function editProduct(id) {
+        let PModel = document.querySelector("#PModel" + id);
+
+        let xhr = new XMLHttpRequest();
+        xhr.open("PUT", "http://10.1.0.21:8080/TomcatServer/products", true);
+        xhr.setRequestHeader('token', sessionStorage.getItem('token'));
+        let body = {
+            product_id: id,
+            model: PModel.value
+        };
+
+        let json = JSON.stringify(body);
+        console.log(json);
+        xhr.onload = function () {
+            if (this.status == 200) {
+                alert("success");
+                CreateProductTable2();
+            } else {
+                alert("fail");
+            }
+        }
+        xhr.send(json);
+    }
+
+    function openEditProductsForm(id) {
+        let prod = document.querySelector("#prod" + id);
+
+        prod.innerHTML = "<form action='#' class='editProd'>" +
+            "<input id ='PModel" + id + "' type='text' placeholder=someModel>" +
+            "<button onclick='editProduct(" + id + ")'>edit</button>" +
+            "</form>";
+    }
+    
+</script>
+
+</html>

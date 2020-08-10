@@ -33,11 +33,10 @@ public class JarDirMonitor {
 				loadBefore(jarDirPath);
 				try {
 					WatchService watcher = FileSystems.getDefault().newWatchService();
-					Path dir = Paths.get(new File(jarDirPath).getParent());
-					dir.register(watcher, StandardWatchEventKinds.ENTRY_MODIFY, StandardWatchEventKinds.ENTRY_CREATE);
-					
+					Path dir = Paths.get(jarDirPath);
+					WatchKey key = dir.register(watcher, StandardWatchEventKinds.ENTRY_MODIFY, StandardWatchEventKinds.ENTRY_CREATE);
 		            while (runFlag) {
-		            	WatchKey key = null;
+		            	
 						try {
 							key = watcher.take();
 						} catch (InterruptedException e) {
@@ -46,10 +45,10 @@ public class JarDirMonitor {
 		                for (WatchEvent<?> event : key.pollEvents()) {
 		                	@SuppressWarnings("unchecked")
 							Path jarPath = ((WatchEvent<Path>)event).context();
-		                	dispatcher.updateAll(jarPath.toString());
+		                	dispatcher.updateAll(jarDirPath + "/" + jarPath.toString());
 		                }
 		                
-		                if (!key.reset()) { break; }
+		                if (!key.reset()) { System.out.println("break? (in monitor)");break; }
 		            }
 					
 				} catch (IOException e) {
@@ -58,6 +57,7 @@ public class JarDirMonitor {
 				
 			}
 		});
+		monitoringThread.start();
 	}
 	public void stopMonitoring() {
 		runFlag = false;
@@ -66,7 +66,7 @@ public class JarDirMonitor {
 	private void loadBefore(String jarDirPath) {
 		File file = new File(jarDirPath);
 		for (String jarPath : file.list()) {
-			dispatcher.updateAll(jarPath);
+			dispatcher.updateAll(jarDirPath + "/" + jarPath);
 		}
 	}
 }

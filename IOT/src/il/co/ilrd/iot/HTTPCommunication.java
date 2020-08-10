@@ -68,9 +68,9 @@ public class HTTPCommunication implements Communication{
 															.collect(Collectors.joining());
 
 			JsonObject json =  new JsonParser().parse(jsonString).getAsJsonObject();
-			System.out.println(json + "in http com");
-			System.out.println(json.get("Key").getAsString());
-			System.out.println(json.get("Data").getAsJsonObject());
+//			System.out.println(json + "in http com");
+//			System.out.println(json.get("Key").getAsString());
+//			System.out.println(json.get("Data").getAsJsonObject());
 			tm.submitTask(peer, json.get("Key").getAsString(), json.get("Data").getAsJsonObject());
 		}
 	}

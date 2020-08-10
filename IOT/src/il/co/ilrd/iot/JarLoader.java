@@ -25,7 +25,7 @@ public class JarLoader {
 	public JarLoader() {
 		Consumer<String> consumer = jarPath -> {
 			try {
-				new JarLoader().load(jarPath);
+				load(jarPath);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -36,6 +36,7 @@ public class JarLoader {
 
 	@SuppressWarnings("unchecked")
 	public void load(String jarPath) throws IOException {
+		System.out.println("load " + jarPath);
 		List<Class<?>> commandClasses = getCommandClasses(jarPath);
 		for (Class<?> commandClass : commandClasses) {
 			String key = null;
@@ -59,7 +60,7 @@ public class JarLoader {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
+			System.out.println("in load func key: " + key + " cTor: " + cTor);
 			factory.Add(key, cTor);
 		}
 	}
@@ -77,7 +78,6 @@ public class JarLoader {
 
 	private List<Class<?>> getClassList(String jarPath) throws IOException {
 		List<Class<?>> classList = new ArrayList<>();
-
 		try (JarFile jf = new JarFile(jarPath)) {
 			for (Enumeration<JarEntry> en = jf.entries(); en.hasMoreElements();) {
 				JarEntry e = en.nextElement();
@@ -87,7 +87,7 @@ public class JarLoader {
 				if (name.endsWith(".class")) {
 					// Strip out ".class" and reformat path to package name
 					String javaName = name.substring(0, name.lastIndexOf('.')).replace('/', '.');
-					System.out.print("Checking "+javaName+" ... ");
+					System.out.println("Checking "+javaName+" ... ");
 					Class<?> cls;
 					URL[] urls = {Path.of(jarPath).toUri().toURL()};
 					try {
@@ -105,16 +105,6 @@ public class JarLoader {
 		}
 
 		return classList;
-	}
-
-	public static void main(String[] args) {
-		try {
-			new JarLoader().load("/home/student/CR.jar");
-			System.out.println(SingletonCommandFactory.getInstance().map_types);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 }
 

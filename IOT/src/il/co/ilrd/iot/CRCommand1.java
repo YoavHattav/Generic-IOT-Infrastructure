@@ -4,23 +4,22 @@ import java.util.function.Function;
 
 import com.google.gson.JsonObject;
 
-public class CRCommand implements Command {
+public class CRCommand1 implements Command {
 	JsonObject data;
-	private static final String key = "sdfg";
+	private static final String key = "CR";
 	
-	public CRCommand(JsonObject data) {
+	public CRCommand1(JsonObject data) {
 		this.data = data;
-		execute();
 	}
 	@Override
 	public Response execute() {
 		System.out.println("CR exe");
-		return null;
+		return new Response("CR working (msg)", 200);
 	}
 	public static String getKey() {
 		return key;
 	}
 	public static Function<JsonObject, Command> getCommandInstance() {
-		return CRCommand::new;
+		return CRCommand1::new;
 	}
 }
