@@ -2436,3 +2436,4 @@
 2020-08-10 09:50:24,361 [Worker-8: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/student/Generic-IOT-Infrastructure/GenericIOT/src/main/resources
 2020-08-10 09:50:24,366 [Worker-8: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
 2020-08-10 09:50:24,366 [Worker-8: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/student/Generic-IOT-Infrastructure/GenericIOT/src/test/resources
+2020-08-17 12:52:56,507 [Worker-2: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
